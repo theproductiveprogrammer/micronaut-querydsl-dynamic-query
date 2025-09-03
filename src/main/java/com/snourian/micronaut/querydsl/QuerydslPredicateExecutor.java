@@ -105,6 +105,11 @@ public interface QuerydslPredicateExecutor<T> {
         return Page.of(paginatedQuery.fetch(), pageable, query.fetchCount());
     }
 
+    default long count(QueryParameters parameters) {
+        Page<T> page = findAll(parameters, Pageable.from(0, 1));
+        return page.getTotalSize();
+    }
+
     private JPAQuery<T> createQuery(QueryParameters params, Map<String, Object> hints) {
         JPAQuery<T> query = initJPAQuery(hints);
         QuerydslPredicateBuilder<T> builder = new QuerydslPredicateBuilder<>(getEntityPath().getType(), params);
