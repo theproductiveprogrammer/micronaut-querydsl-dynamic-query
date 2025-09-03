@@ -16,8 +16,9 @@ project.ext["snapshotRepositoryUrl"] = 'https://s01.oss.sonatype.org/content/rep
 
 File secretPropsFile = file("local.properties")
 if (secretPropsFile.exists()) {
-    secretPropsFile.withReader { Properties p ->
-        p.load(it)
+    secretPropsFile.withReader { reader ->
+        Properties p = new Properties()
+        p.load(reader)
         p.forEach { key, value -> project.ext[key] = value }
     }
 } else {
