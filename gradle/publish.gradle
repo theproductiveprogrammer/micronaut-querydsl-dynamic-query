@@ -3,8 +3,6 @@
 // =======================================
 
 import java.util.Properties
-import io.micronaut.data.model.Pageable
-import io.micronaut.data.model.Page
 
 // Load secrets from local.properties or environment
 project.ext["signing.keyId"] = ''
