@@ -1,60 +1,64 @@
+// =======================================
+// gradle/publish.gradle
+// =======================================
+
+import java.util.Properties
+import io.micronaut.data.model.Pageable
+import io.micronaut.data.model.Page
+
+// Load secrets from local.properties or environment
 project.ext["signing.keyId"] = ''
 project.ext["signing.password"] = ''
 project.ext["signing.key"] = ''
 project.ext["ossrhUsername"] = ''
 project.ext["ossrhPassword"] = ''
 project.ext["sonatypeStagingProfileId"] = ''
-project.ext["nexusUrl"] = ''
-project.ext["snapshotRepositoryUrl"] = ''
+project.ext["nexusUrl"] = 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+project.ext["snapshotRepositoryUrl"] = 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
 
 File secretPropsFile = file("local.properties")
 if (secretPropsFile.exists()) {
-    secretPropsFile.withReader {
-        Properties p = new Properties()
+    secretPropsFile.withReader { Properties p ->
         p.load(it)
-        p.forEach { String key, value -> project.ext[key] = value }
+        p.forEach { key, value -> project.ext[key] = value }
     }
 } else {
-    // Use system environment variables
+    // fallback to environment variables
     project.ext["ossrhUsername"] = System.getenv('OSSRH_USERNAME')
     project.ext["ossrhPassword"] = System.getenv('OSSRH_PASSWORD')
     project.ext["sonatypeStagingProfileId"] = System.getenv('SONATYPE_STAGING_PROFILE_ID')
     project.ext["signing.keyId"] = System.getenv('SIGNING_KEY_ID')
     project.ext["signing.password"] = System.getenv('SIGNING_PASSWORD')
     project.ext["signing.key"] = System.getenv('SIGNING_KEY')
-    project.ext["nexusUrl"] = System.getenv('NEXUS_URL')
-    project.ext["snapshotRepositoryUrl"] = System.getenv('SNAPSHOT_REPOSITORY_URL')
 }
 
+// ===========================
+// Nexus Publishing
+// ===========================
 nexusPublishing {
     repositories {
-        if (project.hasProperty('nexusUrl') && project.nexusUrl) {
-            sonatype {
-                nexusUrl.set(uri(project.nexusUrl))
-                if (project.hasProperty('snapshotRepositoryUrl') && project.snapshotRepositoryUrl) {
-                    snapshotRepositoryUrl.set(uri(project.snapshotRepositoryUrl))
-                }
-                if (project.hasProperty('sonatypeStagingProfileId') && project.sonatypeStagingProfileId) {
-                    stagingProfileId = project.sonatypeStagingProfileId
-                }
-                if (project.hasProperty('ossrhUsername') && project.ossrhUsername) {
-                    username = project.ossrhUsername
-                }
-                if (project.hasProperty('ossrhPassword') && project.ossrhPassword) {
-                    password = project.ossrhPassword
-                }
-            }
+        sonatype {
+            nexusUrl.set(uri(project.nexusUrl))
+            snapshotRepositoryUrl.set(uri(project.snapshotRepositoryUrl))
+            username = project.ossrhUsername
+            password = project.ossrhPassword
+            stagingProfileId = project.sonatypeStagingProfileId
         }
     }
 }
 
+// ===========================
+// Maven Publication
+// ===========================
 publishing {
     publications {
         release(MavenPublication) {
+            from components.java
+
             pom {
                 name = 'micronaut-querydsl-dynamic-query'
                 description = 'A Dynamic REST Query Language in Micronaut'
-                url = 'https://github.com/theproductiveprogrammer/micronaut-querydsl-dynamic-query'
+                url = 'https://github.com/theproductiveprogrammer/micronaut-querydsl'
                 licenses {
                     license {
                         name = 'GNU General Public License v3.0'
@@ -69,19 +73,25 @@ publishing {
                     }
                 }
                 scm {
-                    connection = 'scm:git:github.com/theproductiveprogrammer/micronaut-querydsl-dynamic-query.git'
-                    developerConnection = 'scm:git:ssh://github.com/theproductiveprogrammer/micronaut-querydsl-dynamic-query.git'
-                    url = 'https://github.com/theproductiveprogrammer/micronaut-querydsl-dynamic-query'
+                    connection = 'scm:git:git://github.com/theproductiveprogrammer/micronaut-querydsl.git'
+                    developerConnection = 'scm:git:ssh://github.com/theproductiveprogrammer/micronaut-querydsl.git'
+                    url = 'https://github.com/theproductiveprogrammer/micronaut-querydsl'
                 }
             }
-
-            from components.java
         }
     }
 }
 
+// ===========================
+// Signing
+// ===========================
 signing {
-    if (project.ext["signing.keyId"] && project.ext["signing.keyId"] != '') {
-        sign publishing.publications
+    if (project.ext["signing.keyId"]?.trim()) {
+        useInMemoryPgpKeys(
+            project.ext["signing.keyId"],
+            project.ext["signing.key"],
+            project.ext["signing.password"]
+        )
+        sign publishing.publications.release
     }
 }
