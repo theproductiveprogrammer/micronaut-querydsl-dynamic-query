@@ -5,8 +5,8 @@ plugins {
     id "io.github.gradle-nexus.publish-plugin" version "$gradleNexusPublishVersion"
 }
 
-group 'com.snourian.micronaut'
-version '0.3.0'
+group 'com.salesboxai.micronaut'
+version '0.3.0-SNAPSHOT'
 
 repositories {
     mavenCentral()

@@ -54,7 +54,7 @@ publishing {
             pom {
                 name = 'micronaut-querydsl-dynamic-query'
                 description = 'A Dynamic REST Query Language in Micronaut'
-                url = 'https://snourian.com/dynamic-rest-query-language-micronaut-jpa-querydsl'
+                url = 'https://github.com/theproductiveprogrammer/micronaut-querydsl-dynamic-query'
                 licenses {
                     license {
                         name = 'GNU General Public License v3.0'
@@ -63,15 +63,15 @@ publishing {
                 }
                 developers {
                     developer {
-                        id = 'nrsina'
-                        name = 'Sina Nourian'
-                        email = 'sina.nourian@gmail.com'
+                        id = 'tpp'
+                        name = 'Charles Lobo'
+                        email = 'charles.lobo@gmail.com'
                     }
                 }
                 scm {
-                    connection = 'scm:git:github.com/nrsina/micronaut-querydsl-dynamic-query.git'
-                    developerConnection = 'scm:git:ssh://github.com/nrsina/micronaut-querydsl-dynamic-query.git'
-                    url = 'https://github.com/nrsina/micronaut-querydsl-dynamic-query'
+                    connection = 'scm:git:github.com/theproductiveprogrammer/micronaut-querydsl-dynamic-query.git'
+                    developerConnection = 'scm:git:ssh://github.com/theproductiveprogrammer/micronaut-querydsl-dynamic-query.git'
+                    url = 'https://github.com/theproductiveprogrammer/micronaut-querydsl-dynamic-query'
                 }
             }
 
