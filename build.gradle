@@ -15,8 +15,9 @@ repositories {
 dependencies {
     api "com.querydsl:querydsl-jpa:$queryDSLVersion"
     implementation "jakarta.persistence:jakarta.persistence-api:$jpaVersion"
-    implementation "io.micronaut:micronaut-jackson-databind"
     implementation "io.micronaut.data:micronaut-data-model"
+    implementation "io.micronaut:micronaut-core"
+    implementation "io.micronaut:micronaut-http"
 }
 
 java {

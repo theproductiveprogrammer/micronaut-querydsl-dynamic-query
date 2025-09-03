@@ -28,12 +28,22 @@ if (secretPropsFile.exists()) {
 
 nexusPublishing {
     repositories {
-        sonatype {
-            nexusUrl.set(uri(project.nexusUrl))
-            snapshotRepositoryUrl.set(uri(project.snapshotRepositoryUrl))
-            stagingProfileId = project.sonatypeStagingProfileId
-            username = project.ossrhUsername
-            password = project.ossrhPassword
+        if (project.hasProperty('nexusUrl') && project.nexusUrl) {
+            sonatype {
+                nexusUrl.set(uri(project.nexusUrl))
+                if (project.hasProperty('snapshotRepositoryUrl') && project.snapshotRepositoryUrl) {
+                    snapshotRepositoryUrl.set(uri(project.snapshotRepositoryUrl))
+                }
+                if (project.hasProperty('sonatypeStagingProfileId') && project.sonatypeStagingProfileId) {
+                    stagingProfileId = project.sonatypeStagingProfileId
+                }
+                if (project.hasProperty('ossrhUsername') && project.ossrhUsername) {
+                    username = project.ossrhUsername
+                }
+                if (project.hasProperty('ossrhPassword') && project.ossrhPassword) {
+                    password = project.ossrhPassword
+                }
+            }
         }
     }
 }
@@ -71,5 +81,7 @@ publishing {
 }
 
 signing {
-    sign publishing.publications
+    if (project.ext["signing.keyId"] && project.ext["signing.keyId"] != '') {
+        sign publishing.publications
+    }
 }

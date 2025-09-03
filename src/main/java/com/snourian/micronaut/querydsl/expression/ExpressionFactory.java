@@ -1,6 +1,5 @@
 package com.snourian.micronaut.querydsl.expression;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.snourian.micronaut.querydsl.expression.operator.PredicateOperator;
 import io.micronaut.core.beans.BeanIntrospection;
 import io.micronaut.core.beans.BeanProperty;
@@ -163,20 +162,13 @@ public class ExpressionFactory {
             return convertValues(values, Byte::valueOf);
         else if (type == Character.class)
             return convertValues(values, str -> str.charAt(0));
-        else
-            return convertValues(values, type);
+
+        throw new RuntimeException("Unsupported type: " + type.getName());
     }
 
     private static Object[] convertValues(String[] values, Function<String, Object> mapper) {
         return Stream.of(values)
                 .map(mapper)
-                .distinct()
-                .toArray(Object[]::new);
-    }
-
-    private static Object[] convertValues(String[] values, Class<?> type) {
-        return Stream.of(values)
-                .map(str -> new ObjectMapper().convertValue(str, type))
                 .distinct()
                 .toArray(Object[]::new);
     }
