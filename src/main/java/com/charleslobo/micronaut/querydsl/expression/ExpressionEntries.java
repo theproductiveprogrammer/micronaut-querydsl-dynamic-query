@@ -1,4 +1,4 @@
-package com.snourian.micronaut.querydsl.expression;
+package com.charleslobo.micronaut.querydsl.expression;
 
 import java.util.ArrayList;
 import java.util.List;

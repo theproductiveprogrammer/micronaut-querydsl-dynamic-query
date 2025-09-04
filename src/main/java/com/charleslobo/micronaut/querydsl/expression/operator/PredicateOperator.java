@@ -1,4 +1,4 @@
-package com.snourian.micronaut.querydsl.expression.operator;
+package com.charleslobo.micronaut.querydsl.expression.operator;
 
 import com.querydsl.core.types.Operator;
 import com.querydsl.core.types.Ops;

@@ -1,4 +1,4 @@
-package com.snourian.micronaut.querydsl;
+package com.charleslobo.micronaut.querydsl;
 
 import com.querydsl.core.types.CollectionExpression;
 import com.querydsl.core.types.EntityPath;
@@ -6,14 +6,14 @@ import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.core.util.StringUtils;
 import com.querydsl.jpa.impl.JPAQuery;
-import com.snourian.micronaut.querydsl.expression.PredicatePath;
+import com.charleslobo.micronaut.querydsl.expression.PredicatePath;
 import io.micronaut.data.model.Page;
 import io.micronaut.data.model.Pageable;
 import io.micronaut.data.model.Sort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;

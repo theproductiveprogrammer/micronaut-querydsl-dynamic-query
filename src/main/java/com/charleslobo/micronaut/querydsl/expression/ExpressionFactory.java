@@ -1,13 +1,13 @@
-package com.snourian.micronaut.querydsl.expression;
+package com.charleslobo.micronaut.querydsl.expression;
 
-import com.snourian.micronaut.querydsl.expression.operator.PredicateOperator;
+import com.charleslobo.micronaut.querydsl.expression.operator.PredicateOperator;
 import io.micronaut.core.beans.BeanIntrospection;
 import io.micronaut.core.beans.BeanProperty;
 import io.micronaut.core.beans.exceptions.IntrospectionException;
 import io.micronaut.core.util.StringUtils;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
 import java.lang.annotation.Annotation;
 import java.math.BigDecimal;
 import java.time.Instant;

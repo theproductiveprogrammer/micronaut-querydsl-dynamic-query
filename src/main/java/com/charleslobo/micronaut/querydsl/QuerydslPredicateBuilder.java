@@ -1,4 +1,4 @@
-package com.snourian.micronaut.querydsl;
+package com.charleslobo.micronaut.querydsl;
 
 import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Path;
@@ -6,11 +6,11 @@ import com.querydsl.core.types.PathMetadataFactory;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.util.StringUtils;
-import com.snourian.micronaut.querydsl.expression.ExpressionEntries;
-import com.snourian.micronaut.querydsl.expression.ExpressionFactory;
-import com.snourian.micronaut.querydsl.expression.ExpressionType;
-import com.snourian.micronaut.querydsl.expression.PredicatePath;
-import com.snourian.micronaut.querydsl.expression.operator.OpType;
+import com.charleslobo.micronaut.querydsl.expression.ExpressionEntries;
+import com.charleslobo.micronaut.querydsl.expression.ExpressionFactory;
+import com.charleslobo.micronaut.querydsl.expression.ExpressionType;
+import com.charleslobo.micronaut.querydsl.expression.PredicatePath;
+import com.charleslobo.micronaut.querydsl.expression.operator.OpType;
 
 import java.util.*;
 import java.util.stream.Stream;

@@ -1,4 +1,4 @@
-package com.snourian.micronaut.querydsl;
+package com.charleslobo.micronaut.querydsl;
 
 import com.querydsl.core.types.EntityPath;
 import com.querydsl.core.types.Order;

@@ -1,7 +1,7 @@
-package com.snourian.micronaut.querydsl.expression;
+package com.charleslobo.micronaut.querydsl.expression;
 
 
-import com.snourian.micronaut.querydsl.expression.operator.PredicateOperator;
+import com.charleslobo.micronaut.querydsl.expression.operator.PredicateOperator;
 
 import java.util.Collections;
 import java.util.List;

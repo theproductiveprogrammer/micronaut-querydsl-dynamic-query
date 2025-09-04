@@ -1,4 +1,4 @@
-package com.snourian.micronaut.querydsl;
+package com.charleslobo.micronaut.querydsl;
 
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.http.annotation.QueryValue;

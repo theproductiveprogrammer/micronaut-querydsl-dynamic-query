@@ -95,7 +95,7 @@ Query: select department from Department department
 where department_employees.score > ?1 or department_employees.rank = ?2
 ```
 
-To see what types of predicates are supported, check the **com.snourian.micronaut.querydsl.expression.operator.PredicateOperator** enum:
+To see what types of predicates are supported, check the **operator.expression.com.charleslobo.micronaut.querydsl.PredicateOperator** enum:
 ```text
 EQ, NE, IS_NULL, IS_NOT_NULL, BETWEEN, GOE, GT, LOE, LT, 
 MATCHES (regex), MATCHES_IC (regex), STRING_IS_EMPTY, STARTS_WITH, 
