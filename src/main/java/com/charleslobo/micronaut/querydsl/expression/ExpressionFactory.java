@@ -6,8 +6,8 @@ import io.micronaut.core.beans.BeanProperty;
 import io.micronaut.core.beans.exceptions.IntrospectionException;
 import io.micronaut.core.util.StringUtils;
 
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.Entity;
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 import java.lang.annotation.Annotation;
 import java.math.BigDecimal;
 import java.time.Instant;
