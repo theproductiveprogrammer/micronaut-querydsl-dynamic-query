@@ -11,24 +11,26 @@ project.ext["signing.key"] = ''
 project.ext["ossrhUsername"] = ''
 project.ext["ossrhPassword"] = ''
 project.ext["sonatypeStagingProfileId"] = ''
-project.ext["nexusUrl"] = 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
-project.ext["snapshotRepositoryUrl"] = 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
+project.ext["nexusUrl"] = ''
+project.ext["snapshotRepositoryUrl"] = ''
 
 File secretPropsFile = file("local.properties")
 if (secretPropsFile.exists()) {
-    secretPropsFile.withReader { reader ->
+    secretPropsFile.withReader {
         Properties p = new Properties()
-        p.load(reader)
-        p.forEach { key, value -> project.ext[key] = value }
+        p.load(it)
+        p.forEach { String key, value -> project.ext[key] = value }
     }
 } else {
-    // fallback to environment variables
+    // Use system environment variables
     project.ext["ossrhUsername"] = System.getenv('OSSRH_USERNAME')
     project.ext["ossrhPassword"] = System.getenv('OSSRH_PASSWORD')
     project.ext["sonatypeStagingProfileId"] = System.getenv('SONATYPE_STAGING_PROFILE_ID')
     project.ext["signing.keyId"] = System.getenv('SIGNING_KEY_ID')
     project.ext["signing.password"] = System.getenv('SIGNING_PASSWORD')
     project.ext["signing.key"] = System.getenv('SIGNING_KEY')
+    project.ext["nexusUrl"] = System.getenv('NEXUS_URL')
+    project.ext["snapshotRepositoryUrl"] = System.getenv('SNAPSHOT_REPOSITORY_URL')
 }
 
 // ===========================
@@ -39,9 +41,9 @@ nexusPublishing {
         sonatype {
             nexusUrl.set(uri(project.nexusUrl))
             snapshotRepositoryUrl.set(uri(project.snapshotRepositoryUrl))
+            stagingProfileId = project.sonatypeStagingProfileId
             username = project.ossrhUsername
             password = project.ossrhPassword
-            stagingProfileId = project.sonatypeStagingProfileId
         }
     }
 }
@@ -57,7 +59,7 @@ publishing {
             pom {
                 name = 'micronaut-querydsl-dynamic-query'
                 description = 'A Dynamic REST Query Language in Micronaut'
-                url = 'https://github.com/theproductiveprogrammer/micronaut-querydsl-dynamic-query'
+                url = 'https://snourian.com/dynamic-rest-query-language-micronaut-jpa-querydsl'
                 licenses {
                     license {
                         name = 'GNU General Public License v3.0'
@@ -66,15 +68,15 @@ publishing {
                 }
                 developers {
                     developer {
-                        id = 'tpp'
-                        name = 'Charles Lobo'
-                        email = 'charles.lobo@gmail.com'
+                        id = 'nrsina'
+                        name = 'Sina Nourian'
+                        email = 'sina.nourian@gmail.com'
                     }
                 }
                 scm {
-                    connection = 'scm:git:git://github.com/theproductiveprogrammer/micronaut-querydsl-dynamic-query'
-                    developerConnection = 'scm:git:ssh://github.com/theproductiveprogrammer/micronaut-querydsl-dynamic-query.git'
-                    url = 'https://github.com/theproductiveprogrammer/micronaut-querydsl-dynamic-query'
+                    connection = 'scm:git:github.com/nrsina/micronaut-querydsl-dynamic-query.git'
+                    developerConnection = 'scm:git:ssh://github.com/nrsina/micronaut-querydsl-dynamic-query.git'
+                    url = 'https://github.com/nrsina/micronaut-querydsl-dynamic-query'
                 }
             }
         }
@@ -91,6 +93,6 @@ signing {
             project.ext["signing.key"],
             project.ext["signing.password"]
         )
-        sign publishing.publications.release
+        sign publishing.publications
     }
 }
